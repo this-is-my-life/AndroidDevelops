@@ -1,68 +1,92 @@
 package kro.kr.android.android.develops;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
+import android.widget.EditText;
+import android.widget.TextView;
+
+import org.w3c.dom.Text;
 
 public class MainActivity extends AppCompatActivity {
-
-    private String[] items = {"CocaCola", "pepsi", "mountain dew", "7 Up", "Fanta"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        final Button menuButton = (Button) findViewById(R.id.menu);
-        menuButton.setOnClickListener(new View.OnClickListener() {
+        Button plus = (Button) findViewById(R.id.plus);
+        Button minus = (Button) findViewById(R.id.minus);
+        Button times = (Button) findViewById(R.id.times);
+        Button div = (Button) findViewById(R.id.div);
+
+        plus.setOnClickListener(new View.OnClickListener() {
+
             @Override
-            public void onClick (View v) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-                builder.setTitle("Menu");
-                builder.setItems(items, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        Toast.makeText(getApplicationContext(), items[i], Toast.LENGTH_SHORT).show();
-                        menuButton.setText(items[i]);
-                    }
-                });
-                AlertDialog alert = builder.create();
-                alert.show();
+            public void onClick(View view) {
+                EditText number1 = (EditText) findViewById(R.id.number1);
+                EditText number2 = (EditText) findViewById(R.id.number2);
+
+                TextView result = (TextView) findViewById(R.id.result);
+
+                int n1 = Integer.parseInt(number1.getText().toString());
+                int n2 = Integer.parseInt(number2.getText().toString());
+
+                result.setText("=" + Integer.toString(n1 + n2));
+            }
+
+        });
+
+        minus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                EditText number1 = (EditText) findViewById(R.id.number1);
+                EditText number2 = (EditText) findViewById(R.id.number2);
+
+                TextView result = (TextView) findViewById(R.id.result);
+
+                int n1 = Integer.parseInt(number1.getText().toString());
+                int n2 = Integer.parseInt(number2.getText().toString());
+
+                result.setText("=" + Integer.toString(n1 - n2));
             }
         });
 
-        Button exit = (Button) findViewById(R.id.exit);
-        exit.setOnClickListener(new View.OnClickListener() {
+        times.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick (View v) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-                builder.setMessage("Really Exit?");
-                builder.setTitle("Exit Alert")
-                        .setCancelable(false)
-                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                finish();
-                            }
-                        })
-                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                dialogInterface.cancel();
-                                Toast.makeText(getApplicationContext(), "Canceled", Toast.LENGTH_SHORT).show();
-                            }
-                        });
-                AlertDialog alert = builder.create();
-                alert.setTitle("Exit Alert");
-                alert.show();
+            public void onClick(View view) {
+                EditText number1 = (EditText) findViewById(R.id.number1);
+                EditText number2 = (EditText) findViewById(R.id.number2);
+
+                TextView result = (TextView) findViewById(R.id.result);
+
+                int n1 = Integer.parseInt(number1.getText().toString());
+                int n2 = Integer.parseInt(number2.getText().toString());
+
+                result.setText("=" + Integer.toString(n1 * n2));
             }
         });
+
+        div.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                EditText number1 = (EditText) findViewById(R.id.number1);
+                EditText number2 = (EditText) findViewById(R.id.number2);
+
+                TextView result = (TextView) findViewById(R.id.result);
+
+                int n1 = Integer.parseInt(number1.getText().toString());
+                int n2 = Integer.parseInt(number2.getText().toString());
+
+                if (n2 == 0) {
+                    result.setText("= Error: cannot divide by zero");
+                } else {
+                    result.setText("=" + Integer.toString(n1 / n2));
+                }
+            }
+        });
+
     }
-
-
 }
